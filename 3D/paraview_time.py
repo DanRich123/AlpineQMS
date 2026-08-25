@@ -39,9 +39,9 @@ def read_fortran_records(file_path, shape):
 
 def load_field_data(field_name):
     file_path = '{}'.format(field_name)
-    return read_fortran_records(file_path, (Nz,Ny,Nx))
+    return read_fortran_records(file_path, (Nx,Ny,Nz))
 
-# import hx fields and process
+# import h fields and process
 hx = load_field_data(Hx_field_name)
 hy = load_field_data(Hy_field_name)
 hz = load_field_data(Hz_field_name)
@@ -61,7 +61,7 @@ for t in range(time_steps):
         imageToVTK(
             file_path,
             spacing=(1.0, 1.0, 1.0),
-            origin=(0.0, 0.0, 0.0),
+            origin=(0.5, 0.5, 0.5),
             cellData={"H_Field": (hx_t, hy_t, hz_t)},
         )
     if use_B_instead==True:
@@ -71,7 +71,7 @@ for t in range(time_steps):
         imageToVTK(
             file_path,
             spacing=(1.0, 1.0, 1.0),
-            origin=(0.0, 0.0, 0.0),
+            origin=(0.5, 0.5, 0.5),
             cellData={"H_Field": (hx_t*mu_0*1E6, hy_t*mu_0*1E6, hz_t*mu_0*1E6)},
         )
 
@@ -83,6 +83,6 @@ geo = geo.reshape((Nz, Ny, Nx)).transpose(2, 1, 0)
 imageToVTK(
     geometry_output,
     spacing=(1.0, 1.0, 1.0),
-    origin=(0.0, 0.0, 0.0),
+    origin=(0.5, 0.5, 0.5),
     cellData={"Material": geo},
 )

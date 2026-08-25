@@ -8,9 +8,9 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 
 # Simulation parameters
-Nx = 70
-Ny = 70
-Nz = 70
+Nx = 20
+Ny = 22
+Nz = 30
 time_steps = 1
 use_time = 1
 geom_filename = "geom.bin"
@@ -43,9 +43,9 @@ def read_fortran_records(file_path, shape):
 
 def load_field_data(field_name):
     file_path = '{}'.format(field_name)
-    return read_fortran_records(file_path, (Nz,Ny,Nx))
+    return read_fortran_records(file_path, (Nx,Ny,Nz))
 
-# import hx fields and process
+# import h fields and process
 hx = load_field_data(Hx_field_name)
 hy = load_field_data(Hy_field_name)
 hz = load_field_data(Hz_field_name)
@@ -61,14 +61,14 @@ if use_B_instead==False:
     imageToVTK(
         field_output, 
         spacing=(1.0, 1.0, 1.0), 
-        origin=(0.0, 0.0, 0.0), 
+        origin=(0.5, 0.5, 0.5), 
         cellData={"H_Field": (hx, hy, hz)}
     )
 if use_B_instead==True:
     imageToVTK(
         field_output, 
         spacing=(1.0, 1.0, 1.0), 
-        origin=(0.0, 0.0, 0.0), 
+        origin=(0.5, 0.5, 0.5), 
         cellData={"B_Field": (hx*mu_0*1E6, hy*mu_0*1E6, hz*mu_0*1E6)}
     )
 # Load geometry
@@ -79,6 +79,6 @@ geo = geo.reshape((Nz, Ny, Nx)).transpose(2, 1, 0)
 imageToVTK(
     geometry_output,
     spacing=(1.0, 1.0, 1.0),
-    origin=(0.0, 0.0, 0.0),
+    origin=(0.5, 0.5, 0.5),
     cellData={"Material": geo},
 )
