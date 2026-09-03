@@ -6,6 +6,7 @@ import time as tp
 # This script sets up the inputs for the 3D quasi-magneto-static solver in Fortran
 # The pre-compiled Fortran executable will be run via this script as well
 # SI units unless otherwise stated
+# IMPORTANT - field ouputs are cell centered, not a surfaces, the YEE cell positions are solved for and then averaged to cubic centers.
 
 # select the solver and name the inputs txt file to create - both used at bottom of script to submit via command line for convenience
 solver='QMS_3D'
