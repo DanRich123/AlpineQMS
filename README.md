@@ -76,7 +76,7 @@ $$\mathbf{B} = \mu \mathbf{H} = \mu_0 \mu_r \mathbf{H}$$
 
 $$\mathbf{J} = \sigma \mathbf{E} + \mathbf{J}_{\text{ext}}$$
 
-> **Note**: In the current version, external excitation current density $\mathbf{J}_{\text{ext}}$ is set to zero ($\mathbf{J}_{\text{ext}} = 0$). Future releases will introduce full support for external excitation sources.
+> **Note**: In the current version, external excitation current density $$\mathbf{J}_{\text{ext}}$$ is set to zero ($$\mathbf{J}_{\text{ext}} = 0$$). Future releases will introduce full support for external excitation sources.
 
 ---
 
@@ -90,7 +90,7 @@ Substituting into Ampère's Law with conductivity $\sigma$:
 
 $$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) + \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V = 0$$
 
-Rather than setting $\nabla \cdot \mathbf{A} = 0$ explicitly to eliminate terms analytically, the solver retains the full vector operator form for $\mathbf{A}$ and introduces a **gauge penalty parameter** ($\gamma \nabla (\nabla \cdot \mathbf{A})$) to enforce gauge stability numerically:
+Rather than setting $$\nabla \cdot \mathbf{A} = 0$$ explicitly to eliminate terms analytically, the solver retains the full vector operator form for $$\mathbf{A}$$ and introduces a **gauge penalty parameter** ($$\gamma \nabla (\nabla \cdot \mathbf{A})$$) to enforce gauge stability numerically:
 
 $$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) - \gamma \nabla (\nabla \cdot \mathbf{A}) + \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V = 0$$
 
