@@ -36,6 +36,7 @@ The **3D QMS Field Solver** is designed for high-resolution electromagnetic mode
 Key features include:
 * **Fortran 2018 Engine (`QMS_3D.f90`)**: Fully parallelized spatial stencil discretizations integrated with **Intel MKL PARDISO** direct sparse solvers.
 * **Gauge Penalty Formulation**: Retains the unreduced formulation for $\mathbf{A}$ and incorporates a numerical gauge penalty term to maintain stability without analytical gauge reduction.
+* **Coulomb Gauge Enforcement**: Coulomb gauge is enforced directly however via background field and gradient fields.
 * **Yee Grid Spatial Staggering**: Enforces strict geometric duality by positioning vector potential $\mathbf{A}$ along edges, scalar potential $V$ at nodes, and magnetic fields $(\mathbf{B}, \mathbf{H})$ at cell faces.
 * **Automated Python Pipeline (`master.py`)**: Direct generation of complex 3D material property tensors ($\mu_r$, $\sigma$).
 * **Flexible Visualization Suite**:
@@ -144,7 +145,7 @@ This discrete time derivative is substituted into the governing vector potential
 * **Intel OneAPI Toolkits**:
   * Intel Fortran Compiler (`ifx` or `ifort`).
   * Intel Math Kernel Library (Intel MKL).
-* **Python Environment (Python 3.8+ recommended)**:
+* **Python Environment (Python 3.8+ recommended but not required)**:
   * `numpy`
   * `matplotlib`
   * `pyevtk` (Python EVTK library for writing VTK files directly)
@@ -236,10 +237,8 @@ python3 master.py
 2. Writes `inputs.txt` and `.bin` material files.
 3. Invokes the compiled binary `./QMS_3D`.
 4. The Fortran engine reads inputs, initializes MKL PARDISO matrices, performs the steady-state solve, executes transient time-stepping, and streams output binary files at pre-configured intervals:
-   * `Bx_time.bin`, `By_time.bin`, `Bz_time.bin`: Magnetic flux density arrays across timesteps.
-   * `Hx_time.bin`, `Hy_time.bin`, `Hz_time.bin`: Magnetic field intensity arrays.
-   * `A_time.bin`: Computed 3D magnetic vector potential distributions.
-
+   * `Hx.bin`, `Hy.bin`, `Hz.bin`: Magnetic field intensity arrays at 2D slice across time steps
+   * `Hx_all.bin`, `Hy_all.bin`, `Hz_all.bin`: Magnetic field intensity arrays for all solutions space across time steps
 ---
 
 ## Post-Processing & Visualization
