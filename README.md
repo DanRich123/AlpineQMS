@@ -94,10 +94,11 @@ Rather than setting $$\nabla \cdot \mathbf{A} = 0$$ explicitly to eliminate term
 
 $$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) - \gamma \nabla (\nabla \cdot \mathbf{A}) + \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V = 0$$
 
-Additionally, the solver solves the continutity equation
+Additionally, the solver solves the continutity equation:
 
-$$\nabla \times J = 0$$
-$$\nabla \times (+ \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V) = 0 $$
+$$\nabla \cdot J = 0$$
+
+$$\nabla \cdot (\sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V) = 0$$
 
 ---
 
@@ -106,6 +107,12 @@ $$\nabla \times (+ \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla
 Before transient time-stepping begins, the solver computes the steady-state equation ($$\frac{\partial \mathbf{A}}{\partial t} = 0$$). To account for moving media or velocity convection effects, the steady-state solve incorporates the standard advective term $$\mathbf{v} \times (\nabla \times \mathbf{A})$$:
 
 $$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) - \gamma \nabla (\nabla \cdot \mathbf{A}) - \sigma \mathbf{v} \times (\nabla \times \mathbf{A}) + \sigma \nabla V = 0$$
+
+Additionally, the solver solves the continutity equation:
+
+$$\nabla \cdot J = 0$$
+
+$$\nabla \cdot (\sigma \frac{\partial \mathbf{A}}{\partial t} - \sigma \mathbf{v} \times (\nabla \times \mathbf{A}) + \sigma \nabla V) = 0$$
 
 The solution to this steady-state system serves as the initial state ($\mathbf{A}^0$) for subsequent transient time integration.
 
