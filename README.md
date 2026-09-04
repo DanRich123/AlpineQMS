@@ -94,6 +94,11 @@ Rather than setting $$\nabla \cdot \mathbf{A} = 0$$ explicitly to eliminate term
 
 $$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) - \gamma \nabla (\nabla \cdot \mathbf{A}) + \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V = 0$$
 
+Additionally, the solver solves the continutity equation
+
+$$\nabla \times J = 0$$
+$$\nabla \times (+ \sigma \frac{\partial \mathbf{A}}{\partial t} + \sigma \nabla V) = 0 $$
+
 ---
 
 ### Steady-State Initialization & Advective Motion
