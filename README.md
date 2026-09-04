@@ -25,7 +25,7 @@ A high-performance 3D Quasi-Magnetostatic (QMS) field solver suite coupling a Fo
   - [Matplotlib Rendering & FFT Analysis (`plot.py`)](#matplotlib-rendering--fft-analysis-plotpy)
   - [ParaView Static Field Export (`paraview_still_frame.py`)](#paraview-static-field-export-paraview_still_framepy)
   - [ParaView Time-Series Visualization (`paraview_time.py`)](#paraview-time-series-visualization-paraview_timepy)
-  - [Citing this work]
+  - [Citing this work](#Citing this work)
 
 ---
 
