@@ -236,8 +236,8 @@ python3 master.py
 2. Writes `inputs.txt` and `.bin` material files.
 3. Invokes the compiled binary `./QMS_3D`.
 4. The Fortran engine reads inputs, initializes MKL PARDISO matrices, performs the steady-state solve, executes transient time-stepping, and streams output binary files at pre-configured intervals:
-   * `Hx.bin`, `Hy.bin`, `Hz.bin`: Magnetic field intensity arrays at 2D slice across time steps
-   * `Hx_all.bin`, `Hy_all.bin`, `Hz_all.bin`: Magnetic field intensity arrays for all solutions space across time steps
+   * `Hx.bin`, `Hy.bin`, `Hz.bin`: Magnetic field intensity arrays at a 2D slice (cell centered) across time steps
+   * `Hx_all.bin`, `Hy_all.bin`, `Hz_all.bin`: Magnetic field intensity arrays for all solution space (cell centered) across time steps
 ---
 
 ## Post-Processing & Visualization
@@ -246,8 +246,8 @@ python3 master.py
 
 `plot.py` handles 2D slice visualization, animation creation, and temporal signal extraction.
 
-* **Spatial Slice Heatmaps**: Plots cross-sectional scalar cuts ($x$-$y$, $y$-$z$, $x$-$z$ planes) of $|\mathbf{B}|$ or $|\mathbf{H}|$.
-* **Time-Series Tracking**: Monitors magnetic field values at specified virtual probe locations $(x_p, y_p, z_p)$ over time.
+* **Spatial Slice Heatmaps**: Plots cross-sectional scalar cuts (y-z, x-z, or x-y planes) of $$|\mathbf{B}|$$ or $$|\mathbf{H}|$$.
+* **Time-Series Tracking**: Monitors magnetic field values at specified virtual probe locations $$(x_p, y_p, z_p)$$ over time.
 * **FFT Frequency Spectrum**: Computes Discrete Fourier Transforms (DFT/FFT) of transient probe signals to identify spectral harmonics.
 * **Animation Export**: Generates `.mp4` or `.gif` video files showing time-varying field distributions.
 
