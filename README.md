@@ -112,7 +112,7 @@ Additionally, the solver solves the continutity equation:
 
 $$\nabla \cdot J = 0$$
 
-$$\nabla \cdot (\sigma \frac{\partial \mathbf{A}}{\partial t} - \sigma \mathbf{v} \times (\nabla \times \mathbf{A}) + \sigma \nabla V) = 0$$
+$$\nabla \cdot (\sigma \nabla V - \sigma \mathbf{v} \times (\nabla \times \mathbf{A})) = 0$$
 
 The solution to this steady-state system serves as the initial state ($\mathbf{A}^0$) for subsequent transient time integration.
 
