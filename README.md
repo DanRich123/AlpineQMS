@@ -25,7 +25,6 @@ A high-performance 3D Quasi-Magnetostatic (QMS) field solver suite coupling a Fo
   - [Matplotlib Rendering & FFT Analysis (`plot.py`)](#matplotlib-rendering--fft-analysis-plotpy)
   - [ParaView Static Field Export (`paraview_still_frame.py`)](#paraview-static-field-export-paraview_still_framepy)
   - [ParaView Time-Series Visualization (`paraview_time.py`)](#paraview-time-series-visualization-paraview_timepy)
-- [License & Citation](#license--citation)
 
 ---
 
@@ -282,23 +281,5 @@ python3 paraview_time.py
 * Converts time-series binary output datasets into a sequence of VTK ImageData files (`QMS_frame_0000.vti`, `QMS_frame_0001.vti`, ...).
 * ParaView allows for referencing and opening the series of files as a single file, enabling time-step playback, streamlines, vector glyph animations, and iso-surface extractions in ParaView.
 
----
-
-## License & Citation
-
----
-The MIT License (MIT)
-
-Copyright © 2025-2026 The Regents of the University of Colorado, a body corporate.
-Copyright © 2025-2026 Daniel Richardson.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-ACKNOWLEDGMENTS AND CONTRIBUTIONS
-This software was developed by Daniel Richardson at the Center for National Security Initiatives (NSI), part of the University of Colorado Boulder, and as an independent contractor.
 ---
 
