@@ -93,13 +93,6 @@ where $\phi$ is the scalar electric potential. Substituting into Ampère's Law w
 
 $$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) = \mathbf{J}_{\text{ext}} - \sigma \nabla \phi - \sigma \frac{\partial \mathbf{A}}{\partial t}$$
 
-Using the vector identity $\nabla \times (\nabla \times \mathbf{A}) = \nabla (\nabla \cdot \mathbf{A}) - \nabla^2 \mathbf{A}$ and imposing the **Coulomb Gauge Condition**:
-
-$$\nabla \cdot \mathbf{A} = 0$$
-
-With $\mathbf{J}_{\text{ext}} = 0$, for a region with piecewise uniform magnetic properties $\mu$, the vector potential governing PDE simplifies to:
-
-$$\nabla^2 \mathbf{A} - \mu \sigma \frac{\partial \mathbf{A}}{\partial t} = \mu \sigma \nabla \phi$$
 
 ---
 
