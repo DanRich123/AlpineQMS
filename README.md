@@ -266,8 +266,8 @@ To convert single frame snapshot binary output into VTK ImageData (`.vti`) using
 python3 paraview_still_frame.py
 ```
 
-* Exports vector field quantities $\mathbf{B} = (B_x, B_y, B_z)$ and scalar field magnitude $|\mathbf{B}|$.
-* Output file: `QMS_still_frame.vti` (Loadable directly in ParaView).
+* Exports vector field quantities $\mathbf{B} = (B_x, B_y, B_z)$ or $\mathbf{H} = (H_x, H_y, H_z)$.
+* Output file: `QMS_still_frame.vti` (Loadable directly in ParaView - allows for viewing magnitude or components seperately).
 
 ---
 
@@ -280,7 +280,7 @@ python3 paraview_time.py
 ```
 
 * Converts time-series binary output datasets into a sequence of VTK ImageData files (`QMS_frame_0000.vti`, `QMS_frame_0001.vti`, ...).
-* Generates a ParaView metadata collection file (`QMS_transient.pvd`) referencing the series, enabling time-step playback, streamlines, vector glyph animations, and iso-surface extractions in ParaView.
+* ParaView allows for referencing and opening the series of files as a single file, enabling time-step playback, streamlines, vector glyph animations, and iso-surface extractions in ParaView.
 
 ---
 
