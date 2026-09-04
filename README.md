@@ -75,7 +75,7 @@ $$\mathbf{B} = \mu \mathbf{H} = \mu_0 \mu_r \mathbf{H}$$
 
 $$\mathbf{J} = \sigma \mathbf{E} + \mathbf{J}_{\text{ext}}$$
 
-> **Note**: In the current implementation, external excitation current $\mathbf{J}_{\text{ext}}$ is set to zero ($\mathbf{J}_{\text{ext}} = 0$). Future releases will introduce full support for external excitation sources.
+> **Note**: In the current implementation, external excitation current is set to zero ($$\mathbf{J}_{\text{ext}} = 0$$). Future releases will introduce full support for external excitation sources.
 
 ---
 
