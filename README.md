@@ -33,9 +33,8 @@ The **3D QMS Field Solver** is designed for high-resolution electromagnetic mode
 
 Key features include:
 * **Fortran 2018 Engine (`QMS_3D.f90`)**: Fully parallelized spatial stencil discretizations integrated with **Intel MKL PARDISO** direct sparse solvers.
-* **Coulomb Gauge Formulation**: Enforces $
-abla \cdot \mathbf{A} = 0$ to decouple potential fields and eliminate spurious modes.
-* **Automated Python Pipeline (`master.py`)**: Direct generation of complex 3D material property tensors ($\mu_r$, $\sigma$) and source current distributions ($\mathbf{J}_{	ext{ext}}$).
+* **Coulomb Gauge Formulation**: Enforces $\nabla \cdot \mathbf{A} = 0$ to decouple potential fields and eliminate spurious modes.
+* **Automated Python Pipeline (`master.py`)**: Direct generation of complex 3D material property tensors ($\mu_r$, $\sigma$).
 * **Flexible Visualization Suite**:
   * Matplotlib scripts (`plot.py`) for spatial slice heatmaps, signal histories, and Fast Fourier Transform (FFT) frequency spectrum extraction.
   * ParaView integration scripts (`paraview_still_frame.py`, `paraview_time.py`) exporting native VTK ImageData (`.vti`) formats for volume rendering and field line streamlines.
@@ -60,28 +59,23 @@ abla \cdot \mathbf{A} = 0$ to decouple potential fields and eliminate spurious m
 
 ### Quasi-Magnetostatic Approximations
 
-In the quasi-magnetostatic (QMS) regime, the displacement current density $ rac{\partial \mathbf{D}}{\partial t}$ in Maxwell's equations is neglected ($ rac{\partial \mathbf{D}}{\partial t} \ll \mathbf{J}$):
+In the quasi-magnetostatic (QMS) regime, the displacement current density $\frac{\partial \mathbf{D}}{\partial t}$ in Maxwell's equations is neglected ($\frac{\partial \mathbf{D}}{\partial t} \ll \mathbf{J}$):
 
-$$
-abla 	imes \mathbf{H} = \mathbf{J}$$
+$$\nabla \times \mathbf{H} = \mathbf{J}$$
 
-$$
-abla 	imes \mathbf{E} = - rac{\partial \mathbf{B}}{\partial t}$$
+$$\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$$
 
-$$
-abla \cdot \mathbf{B} = 0$$
+$$\nabla \cdot \mathbf{B} = 0$$
 
-$$
-abla \cdot \mathbf{D} = 
-ho_v$$
+$$\nabla \cdot \mathbf{D} = \rho_v$$
 
 Constitutive relations couple the macroscopic fields:
 
 $$\mathbf{B} = \mu \mathbf{H} = \mu_0 \mu_r \mathbf{H}$$
 
-$$\mathbf{J} = \sigma \mathbf{E} + \mathbf{J}_{	ext{ext}}$$
+$$\mathbf{J} = \sigma \mathbf{E} + \mathbf{J}_{\text{ext}}$$
 
-where $\mu_0$ is the vacuum permeability ($4\pi 	imes 10^{-7} 	ext{ H/m}$), $\mu_r(\mathbf{r})$ is the relative magnetic permeability tensor/scalar, $\sigma(\mathbf{r})$ is electrical conductivity ($	ext{S/m}$), and $\mathbf{J}_{	ext{ext}}$ represents externally imposed source excitation currents.
+> **Note**: In the current implementation, external excitation current $\mathbf{J}_{\text{ext}}$ is set to zero ($\mathbf{J}_{\text{ext}} = 0$). Future releases will introduce full support for external excitation sources.
 
 ---
 
@@ -89,49 +83,31 @@ where $\mu_0$ is the vacuum permeability ($4\pi 	imes 10^{-7} 	ext{ H/m}$), $\mu
 
 Representing the magnetic flux density in terms of the magnetic vector potential $\mathbf{A}$:
 
-$$\mathbf{B} = 
-abla 	imes \mathbf{A}$$
+$$\mathbf{B} = \nabla \times \mathbf{A}$$
 
 Substituting into Faraday's Law yields:
 
-$$
-abla 	imes \left( \mathbf{E} +  rac{\partial \mathbf{A}}{\partial t} 
-ight) = 0 \implies \mathbf{E} = -
-abla \phi -  rac{\partial \mathbf{A}}{\partial t}$$
+$$\nabla \times \left( \mathbf{E} + \frac{\partial \mathbf{A}}{\partial t} \right) = 0 \implies \mathbf{E} = -\nabla \phi - \frac{\partial \mathbf{A}}{\partial t}$$
 
-where $\phi$ is the scalar electric potential. Substituting into Amp√®re's Law with conductivity $\sigma$:
+where $\phi$ is the scalar electric potential. Substituting into Ampère's Law with conductivity $\sigma$:
 
-$$
-abla 	imes \left(  rac{1}{\mu} 
-abla 	imes \mathbf{A} 
-ight) = \mathbf{J}_{	ext{ext}} - \sigma 
-abla \phi - \sigma  rac{\partial \mathbf{A}}{\partial t}$$
+$$\nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) = \mathbf{J}_{\text{ext}} - \sigma \nabla \phi - \sigma \frac{\partial \mathbf{A}}{\partial t}$$
 
-Using the vector identity $
-abla 	imes (
-abla 	imes \mathbf{A}) = 
-abla (
-abla \cdot \mathbf{A}) - 
-abla^2 \mathbf{A}$ and imposing the **Coulomb Gauge Condition**:
+Using the vector identity $\nabla \times (\nabla \times \mathbf{A}) = \nabla (\nabla \cdot \mathbf{A}) - \nabla^2 \mathbf{A}$ and imposing the **Coulomb Gauge Condition**:
 
-$$
-abla \cdot \mathbf{A} = 0$$
+$$\nabla \cdot \mathbf{A} = 0$$
 
-For a region with piecewise uniform magnetic properties $\mu$, the vector potential governing PDE simplifies to:
+With $\mathbf{J}_{\text{ext}} = 0$, for a region with piecewise uniform magnetic properties $\mu$, the vector potential governing PDE simplifies to:
 
-$$
-abla^2 \mathbf{A} - \mu \sigma  rac{\partial \mathbf{A}}{\partial t} = -\mu \mathbf{J}_{	ext{ext}} + \mu \sigma 
-abla \phi$$
+$$\nabla^2 \mathbf{A} - \mu \sigma \frac{\partial \mathbf{A}}{\partial t} = \mu \sigma \nabla \phi$$
 
 ---
 
 ### Discretization & Linear System Formulations
 
-The spatial domain $(N_x 	imes N_y 	imes N_z)$ is discretized on a structured 3D Cartesian mesh with grid spacings $\Delta x, \Delta y, \Delta z$. Second-order central finite differences discretize the spatial Laplacian $
-abla^2 \mathbf{A}$:
+The spatial domain $(N_x \times N_y \times N_z)$ is discretized on a structured 3D Cartesian mesh with grid spacings $\Delta x, \Delta y, \Delta z$. Second-order central finite differences discretize the spatial Laplacian $\nabla^2 \mathbf{A}$:
 
-$$
-abla^2 A_k  ig|_{i,j,k}  pprox  rac{A_{k, i+1,j,k} - 2A_{k, i,j,k} + A_{k, i-1,j,k}}{\Delta x^2} +  rac{A_{k, i,j+1,k} - 2A_{k, i,j,k} + A_{k, i,j-1,k}}{\Delta y^2} +  rac{A_{k, i,j,k+1} - 2A_{k, i,j,k} + A_{k, i,j,k-1}}{\Delta z^2}$$
+$$\nabla^2 A_k \Big|_{i,j,k} \approx \frac{A_{k, i+1,j,k} - 2A_{k, i,j,k} + A_{k, i-1,j,k}}{\Delta x^2} + \frac{A_{k, i,j+1,k} - 2A_{k, i,j,k} + A_{k, i,j-1,k}}{\Delta y^2} + \frac{A_{k, i,j,k+1} - 2A_{k, i,j,k} + A_{k, i,j,k-1}}{\Delta z^2}$$
 
 Time-stepping applies implicit Euler or Crank-Nicolson schemes to ensure unconditional stability in highly conductive domains ($\sigma \gg 0$).
 
@@ -143,7 +119,7 @@ The sparse system matrix $\mathbf{K} \mathbf{u} = \mathbf{f}$ is passed directly
 
 ### Hardware Requirements
 * **CPU**: x86_64 Processor supporting AVX2 or AVX-512 instruction sets. Multi-core execution is highly recommended for PARDISO threads.
-* **RAM**: 16 GB minimum (32 GB+ recommended for spatial grids larger than $128 	imes 128 	imes 128$).
+* **RAM**: 16 GB minimum (32 GB+ recommended for spatial grids larger than $128 \times 128 \times 128$).
 
 ### Software Dependencies
 * **Intel OneAPI Toolkits**:
@@ -188,16 +164,16 @@ ifx -O3 -qopenmp -qmkl=parallel QMS_3D.f90 -o QMS_3D
 The workflow follows a 3-step pipeline: setup via Python, binary execution via Fortran, and visualization via Python/ParaView.
 
 ```
-‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê       ‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê       ‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê
-‚îÇ   master.py     ‚îÇ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ>‚îÇ inputs.txt      ‚îÇ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ>‚îÇ   QMS_3D        ‚îÇ
-‚îÇ (Geometry/Grid) ‚îÇ       ‚îÇ Binary Datasets ‚îÇ       ‚îÇ (Fortran Solver)‚îÇ
-‚îî‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îò       ‚îî‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îò       ‚îî‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚î¨‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îò
-                                                             ‚îÇ
-                                                             ‚ñº
-‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê       ‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê       ‚îå‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îê
-‚îÇ ParaView (.vti) ‚îÇ<‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÇ plot.py / VTK   ‚îÇ<‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÇ Raw Output      ‚îÇ
-‚îÇ 3D Rendering    ‚îÇ       ‚îÇ Post-Processors ‚îÇ       ‚îÇ Field Binaries  ‚îÇ
-‚îî‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îò       ‚îî‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îò       ‚îî‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îò
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│   master.py     │──────>│ inputs.txt      │──────>│   QMS_3D        │
+│ (Geometry/Grid) │       │ Binary Datasets │       │ (Fortran Solver)│
+└─────────────────┘       └─────────────────┘       └────────┬────────┘
+                                                             │
+                                                             ▼
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│ ParaView (.vti) │<──────│ plot.py / VTK   │<──────│ Raw Output      │
+│ 3D Rendering    │       │ Post-Processors │       │ Field Binaries  │
+└─────────────────┘       └─────────────────┘       └─────────────────┘
 ```
 
 ### 1. Geometry & Domain Setup (`master.py`)
@@ -208,8 +184,7 @@ Key variables defined within `master.py`:
 * **Grid dimensions**: `Nx`, `Ny`, `Nz`
 * **Spatial steps**: `dx`, `dy`, `dz`
 * **Time parameters**: `dt`, `Nt` (Number of timesteps)
-* **Frequency / Excitation parameters**: `freq`, excitation current pulse parameters
-* **Material Maps**: Permeability matrix `mu_r[Nx, Ny, Nz]`, Conductivity matrix `sigma[Nx, Ny, Nz]`, External Current density matrices `Jx`, `Jy`, `Jz`.
+* **Material Maps**: Permeability matrix `mu_r[Nx, Ny, Nz]`, Conductivity matrix `sigma[Nx, Ny, Nz]`.
 
 ### 2. Input Specification (`inputs.txt`)
 
@@ -226,8 +201,7 @@ The parameter control file `inputs.txt` created by `master.py` contains basic nu
 
 For performance, 3D spatial field structures are exported by `master.py` as unformatted IEEE 754 floating-point binary buffers:
 * `mu_r.bin`: Relative permeability distribution matrix.
-* `sigma.bin`: Electrical conductivity map ($	ext{S/m}$).
-* `Jx_ext.bin`, `Jy_ext.bin`, `Jz_ext.bin`: Time-independent or spatial envelope matrices of external excitation current density ($	ext{A/m}^2$).
+* `sigma.bin`: Electrical conductivity map ($\text{S/m}$).
 
 ---
 
