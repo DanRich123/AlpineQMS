@@ -284,7 +284,7 @@ python3 paraview_still_frame.py
 
 ### ParaView Time-Series Visualization (`paraview_time.py`)
 
-To render transient multi-timestep animations in ParaView using `pyevtk`:
+To render transient multi-timestep animations in ParaView using `pyevtk`, very similar to the still frame version:
 
 ```bash
 python3 paraview_time.py
