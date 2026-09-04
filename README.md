@@ -144,7 +144,7 @@ This discrete time derivative is substituted into the governing vector potential
 * **Intel OneAPI Toolkits**:
   * Intel Fortran Compiler (`ifx` or `ifort`).
   * Intel Math Kernel Library (Intel MKL).
-* **Python Environment (Python 3.8+)**:
+* **Python Environment (Python 3.8+ recommended)**:
   * `numpy`
   * `matplotlib`
   * `pyevtk` (Python EVTK library for writing VTK files directly)
@@ -161,7 +161,7 @@ The Fortran backend source code `QMS_3D.f90` is compiled using the provided shel
 #!/bin/bash
 # Compilation script for QMS 3D Fortran Solver using Intel Fortran Compiler and MKL
 
-ifx -O3 -qopenmp -qmkl=parallel QMS_3D.f90 -o QMS_3D
+ifx -O3 -qmkl QMS_3D.f90 -o QMS_3D
 ```
 
 ### Build Instructions:
