@@ -216,6 +216,7 @@ Key variables defined within `master.py`:
 * **Spatial steps**: `dx`, `dy`, `dz`
 * **Time parameters**: `dt`, `Nt` (time step and number of time steps)
 * **Material Maps**: Relative permeability matrix `mu_r[Nx, Ny, Nz]`, Conductivity matrix `sigma[Nx, Ny, Nz]`.
+* **IMPORTANT**: Motion parameters are for the reference frame itself, meaning the objects move in the opposite direction.
 
 ### 2. Input Specification (`inputs.txt`)
 
