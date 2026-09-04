@@ -286,6 +286,7 @@ python3 paraview_time.py
 
 ## License & Citation
 
+---
 The MIT License (MIT)
 
 Copyright © 2025-2026 The Regents of the University of Colorado, a body corporate.
@@ -299,4 +300,5 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 ACKNOWLEDGMENTS AND CONTRIBUTIONS
 This software was developed by Daniel Richardson at the Center for National Security Initiatives (NSI), part of the University of Colorado Boulder, and as an independent contractor.
+---
 
