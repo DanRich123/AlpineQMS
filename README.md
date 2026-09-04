@@ -138,7 +138,7 @@ This discrete time derivative is substituted into the governing vector potential
 
 ### Hardware Requirements
 * **CPU**: x86_64 Processor supporting AVX2 or AVX-512 instruction sets. Multi-core execution is highly recommended for PARDISO threads.
-* **RAM**: 16 GB minimum (32 GB+ recommended for spatial grids larger than $128 \times 128 \times 128$).
+* **RAM**: 16 GB minimum (32 GB+ recommended for spatial grids larger than $50 \times 50 \times 50$).
 
 ### Software Dependencies
 * **Intel OneAPI Toolkits**:
@@ -210,10 +210,9 @@ Key variables defined within `master.py`:
 The parameter control file `inputs.txt` created by `master.py` contains basic numerical inputs read directly by `QMS_3D.f90`:
 
 ```text
-128 128 128      ! Nx, Ny, Nz (Grid Dimensions)
-0.001 0.001 0.001 ! dx, dy, dz (Grid Spacing in meters)
-1e-6 500         ! dt (Time step in seconds), Nt (Total time steps)
-1.0              ! Relaxation / Solver Convergence Criteria
+128 128 128        ! Nx, Ny, Nz (Grid Dimensions)
+0.001 0.001 0.001  ! dx, dy, dz (Grid Spacing in meters)
+1e-6 500           ! dt (Time step in seconds), Nt (Total time steps)
 ```
 
 ### 3. Binary Input Buffers
