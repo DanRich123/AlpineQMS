@@ -36,7 +36,7 @@ The **3D QMS Field Solver** is designed for high-resolution electromagnetic mode
 Key features include:
 * **Fortran 2018 Engine (`QMS_3D.f90`)**: Fully parallelized spatial stencil discretizations integrated with **Intel MKL PARDISO** direct sparse solvers.
 * **Gauge Penalty Formulation**: Retains the unreduced formulation for $\mathbf{A}$ and incorporates a numerical gauge penalty term to maintain stability without analytical gauge reduction.
-* **Coulomb Gauge Enforcement**: Coulomb gauge is enforced directly however via background field and gradient fields.
+* **Coulomb Gauge Enforcement**: Coulomb gauge is enforced directly however via background field and gradient fields and Yee grid placement for the fields.
 * **Yee Grid Spatial Staggering**: Enforces strict geometric duality by positioning vector potential $\mathbf{A}$ along edges, scalar potential $V$ at nodes, and magnetic fields $(\mathbf{B}, \mathbf{H})$ at cell faces.
 * **Automated Python Pipeline (`master.py`)**: Direct generation of complex 3D material property tensors ($\mu_r$, $\sigma$).
 * **Flexible Visualization Suite**:
