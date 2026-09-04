@@ -2,6 +2,8 @@
 
 A high-performance 3D Quasi-Magnetostatic (QMS) field solver suite coupling a Fortran 2018 / Intel MKL PARDISO computational engine with Python domain setup, automated job control, Matplotlib spectral analysis, and ParaView VTK (`pyevtk`) post-processing pipelines.
 
+Developed by Daniel Richardson at the Center for National Security Initiatives (NSI), University of Colorado Boulder and as an independent.
+
 ---
 
 ## Table of Contents
