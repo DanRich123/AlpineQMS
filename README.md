@@ -198,13 +198,13 @@ The workflow follows a 3-step pipeline: setup via Python, binary execution via F
 
 ### 1. Geometry & Domain Setup (`master.py`)
 
-`master.py` configures global simulation parameters, defines geometry via 3D matrix masks, generates physical coefficient arrays ($\mu_r, \sigma$), writes the parameter config `inputs.txt`, and generates raw unformatted binary inputs.
+`master.py` configures global simulation parameters, defines geometry via a 3D matrix mask for material properties ($\mu_r, \sigma$), writes the parameter config `inputs.txt`, and generates a raw unformatted binary for geometry.
 
 Key variables defined within `master.py`:
 * **Grid dimensions**: `Nx`, `Ny`, `Nz`
 * **Spatial steps**: `dx`, `dy`, `dz`
-* **Time parameters**: `dt`, `Nt` (Number of timesteps)
-* **Material Maps**: Permeability matrix `mu_r[Nx, Ny, Nz]`, Conductivity matrix `sigma[Nx, Ny, Nz]`.
+* **Time parameters**: `dt`, `Nt` (time step and number of time steps)
+* **Material Maps**: Relative permeability matrix `mu_r[Nx, Ny, Nz]`, Conductivity matrix `sigma[Nx, Ny, Nz]`.
 
 ### 2. Input Specification (`inputs.txt`)
 
@@ -218,9 +218,8 @@ The parameter control file `inputs.txt` created by `master.py` contains basic nu
 
 ### 3. Binary Input Buffers
 
-For performance, 3D spatial field structures are exported by `master.py` as unformatted IEEE 754 floating-point binary buffers:
-* `mu_r.bin`: Relative permeability distribution matrix.
-* `sigma.bin`: Electrical conductivity map ($\text{S/m}$).
+For performance, a 3D spatial field structure is exported by `master.py` as a floating-point binary:
+* `geom.bin`: Contains the material property ID number identifying the material
 
 ---
 
