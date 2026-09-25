@@ -234,7 +234,7 @@ The parameter control file `inputs.txt` created by `master.py` contains basic nu
 ### 3. Binary Input Buffers
 
 For performance, a 3D spatial field structure is exported by `master.py` as a floating-point binary:
-* `geom.bin`: Contains the material property ID number identifying the material
+* `geom.bin`: Contains the material property ID number identifying the material used
 
 ---
 
