@@ -312,6 +312,3 @@ If you use AlpineEM in academic work, please cite it, e.g.:
 }
 ```
 
-If there are any questions or concerns, or errors discovered, please email:
-daniel.richardson@colorado.edu
-
